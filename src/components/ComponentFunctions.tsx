@@ -99,7 +99,7 @@ export function politImage(imageUrl: string, w: number = 64, h: number = 64) {
                 component="img"
                 src={imageUrl}
                 onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                    (e.target as HTMLImageElement).src = ImageUrls.politMarketLogo
+                    (e.target as HTMLImageElement).src = ImageUrls.politMarketLogo2
                 }}
                 alt="Something went wrong"
                 sx={{

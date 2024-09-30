@@ -43,7 +43,7 @@ const HomePage: React.FC = () => {
         >
             <Box
                 component="img"
-                src={ImageUrls.tonLogoUrl}
+                src={ImageUrls.politMarketLogo}
                 alt="Your Image"
                 sx={{
                     width: '200px',
