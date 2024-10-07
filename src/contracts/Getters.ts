@@ -5,10 +5,11 @@ import { Constants } from "./Constants";
 import ParentContract from "./ParentContract";
 import axios from "axios";
 import TokenContract from "./TokenContract";
+import { it } from "node:test";
 
 async function getChildContract(addressString: string) {
     const contractAddress = Address.parse(addressString);
-    const endpoint = await getHttpEndpoint({ network: "testnet" });
+    const endpoint = await getHttpEndpoint({ network: Constants.network });
     const client = new TonClient({ endpoint });
     const contract = new ChildContract(contractAddress);
     const child = client.open(contract);
@@ -17,7 +18,7 @@ async function getChildContract(addressString: string) {
 
 async function getParentContract(addressString: string) {
     const contractAddress = Address.parse(addressString);
-    const endpoint = await getHttpEndpoint({ network: "testnet" });
+    const endpoint = await getHttpEndpoint({ network: Constants.network });
     const client = new TonClient({ endpoint });
     const contract = new ParentContract(contractAddress);
     const parent = client.open(contract);
@@ -26,7 +27,7 @@ async function getParentContract(addressString: string) {
 
 async function getTokenContract(addressString: string) {
     const contractAddress = Address.parse(addressString);
-    const endpoint = await getHttpEndpoint({ network: "testnet" });
+    const endpoint = await getHttpEndpoint({ network: Constants.network });
     const client = new TonClient({ endpoint });
     const contract = new TokenContract(contractAddress);
     const parent = client.open(contract);
@@ -126,9 +127,6 @@ export async function fetchMyBets(address: string) {
     const tonContract = await getParentContract(Constants.tonParentAddress);
     const tonAddressMap = await tonContract.getGetUserBets(Address.parse(address), false);
 
-    const tokenContract = await getParentContract(Constants.tokenParentAddress);
-    const tokenAddressMap = await tokenContract.getGetUserBets(Address.parse(address), true);
-
     let result: Bet[] = [];
 
     for (const betDetails of tonAddressMap.values()) {
@@ -137,11 +135,30 @@ export async function fetchMyBets(address: string) {
         console.log("address is:", betDetails.betContract.toString(), "winner is: ", betInfo.winnerOption.toString(), "finishDate: ", betInfo.finishDate)
     }
 
+    const parentAddresses = [Constants.hamstrParentAddress, Constants.usdtMasterAddress, Constants.dogsParentAddress, Constants.notcoinParentAddress]
+    for (const parentAddress of parentAddresses) {
+        try {
+            const tmp = await fetchMyBetsForContract(address, parentAddress)
+            result.concat(tmp)
+        } catch (e) {
+            console.error('Failed to fetch my bets for: ', parentAddress, e)
+        }
+    }
+    return result
+}
+
+async function fetchMyBetsForContract(userAddress: string, parentContractAddress: string): Promise<Bet[]> {
+    let result: Bet[] = [];
+
+    const tokenContract = await getParentContract(parentContractAddress);
+    const tokenAddressMap = await tokenContract.getGetUserBets(Address.parse(userAddress), true);
+
     for (const betDetails of tokenAddressMap.values()) {
         const betInfo = await getBetInfo(betDetails.betContract.toString())
         result.push({ $$type: "Bet", betInfo: betInfo, betDetails: betDetails, address: betDetails.toString() })
         console.log("address is:", betDetails.betContract.toString(), "winner is: ", betInfo.winnerOption.toString(), "finishDate: ", betInfo.finishDate)
     }
+
     return result
 }
 

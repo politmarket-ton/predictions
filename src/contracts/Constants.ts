@@ -1,12 +1,15 @@
+import { Network } from "@orbs-network/ton-access"
+
 export class Constants {
 
+    static network: Network = "mainnet"
+
     //our parent contracts
-    static tonParentAddress = "EQCifBMyZpTPo2zyBdnW83wVUHVBDTaNfoccrEMjp2D-KwIY"
-    static tokenParentAddress = "EQCtlHsXtSOLkppY5uqdj9ui6Y-IxSFviTiJEMkmYVJ55H3v"
-    static hamstrParentAddress = "EQCtlHsXtSOLkppY5uqdj9ui6Y-IxSFviTiJEMkmYVJ55H3v"
-    static usdtParentAddress = "EQCtlHsXtSOLkppY5uqdj9ui6Y-IxSFviTiJEMkmYVJ55H3v"
-    static dogsParentAddress = "EQCtlHsXtSOLkppY5uqdj9ui6Y-IxSFviTiJEMkmYVJ55H3v"
-    static notcoinParentAddress = "EQCtlHsXtSOLkppY5uqdj9ui6Y-IxSFviTiJEMkmYVJ55H3v"
+    static tonParentAddress = "EQADVSGrDvBoiSbciqdh2GHpIWo6PWtruK7VwCGeU3PLm3sw"
+    static hamstrParentAddress = "EQCJ39AFxuFie9sVvKNcj_J4OZIPpFCrUPB5cUT7Tv_BAGVH"
+    static usdtParentAddress = "EQC1nQlseFTKRJOYyZZLLB94rZAcadeYTvLLt9UtV1OPfPT5"
+    static dogsParentAddress = "EQCJ39AFxuFie9sVvKNcj_J4OZIPpFCrUPB5cUT7Tv_BAGVH"
+    static notcoinParentAddress = "EQCJ39AFxuFie9sVvKNcj_J4OZIPpFCrUPB5cUT7Tv_BAGVH"
 
     //special token addresses
     static tokenAddress = "kQCtj2MsejKfN7A0Pr4XWc3kQD02eqopy45DT5F6QxXn5LXB"

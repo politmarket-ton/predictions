@@ -15,6 +15,7 @@ import { createTransactionForStringMessage, createTransactionForToken } from '..
 import { fetchContractByAddress, getUSDPrice } from '../contracts/Getters';
 import { fromNano } from 'ton-core';
 import { betAmountContainer, politImage } from '../components/ComponentFunctions';
+import { getPercent } from '../contracts/CommonFunctions';
 
 interface LocationState {
     state: string;
@@ -228,7 +229,7 @@ function IconlessRadio(betInfo: BetInfo | undefined, usdRate: number, handleBetT
                 sx={{ gap: 1.5 }}
                 onChange={handleBetTypeChange}
             >
-                {radioInfo.map((value) => (
+                {radioInfo.map((value, index) => (
                     <Sheet
                         key={value.title}
                         sx={{
@@ -305,7 +306,7 @@ function IconlessRadio(betInfo: BetInfo | undefined, usdRate: number, handleBetT
                                     color: 'inherit' // Inherit color from parent (optional)
                                 }}
                             >
-                                {('$').concat(converTonToUsd(value.coef, usdRate))}
+                                {getPercent(index, betInfo).concat('%')}
                             </Typography>
                         </Box>
 
@@ -316,13 +317,6 @@ function IconlessRadio(betInfo: BetInfo | undefined, usdRate: number, handleBetT
     );
 }
 
-function getCoefficent(coef: bigint): string {
-    return (1 + Number(coef) / 1000).toFixed(3).toString()
-}
-
-function converTonToUsd(tons: bigint, usdRate: number): string {
-    return (Number(fromNano(tons)) * usdRate).toFixed(2)
-}
 
 function deserializeBet(json: string): Bet {
     return JSON.parse(json, (key, value) =>

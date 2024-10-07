@@ -10,7 +10,7 @@ import { Bet } from '../contracts/ChildContract';
 import { BetDetails, BetInfo } from '../contracts/wrappers';
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import { betAmountContainer, loader, politImage } from '../components/ComponentFunctions';
-import { calculateEstimateForList, isBetActive, isWinner } from '../contracts/CommonFunctions';
+import { calculateEstimateForList, getTokenName, isBetActive, isWinner } from '../contracts/CommonFunctions';
 import { fromNano } from 'ton-core';
 import MuiDropdown from '../components/MuiDropdown';
 import { ImageUrls } from '../ImageUrls';
@@ -328,23 +328,6 @@ function retryButton(handleRetry: () => void) {
       </Button>
     </Box >
   )
-}
-
-function getTokenName(token_type: string) {
-  switch (token_type) {
-    case '1':
-      return 'TON'
-    case '2':
-      return 'HMSTR'
-    case '3':
-      return 'USDT'
-    case '4':
-      return 'Dogs'
-    case '5':
-      return 'Notcoin'
-    default:
-      return '???'
-  }
 }
 
 const options = [

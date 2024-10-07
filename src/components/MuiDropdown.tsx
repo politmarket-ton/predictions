@@ -24,7 +24,7 @@ const MuiDropdown: React.FC<DropdownProps> = ({ options, selectedValue, onSelect
                 id="mui-select-label"
                 sx={{ color: "white" }}
             >
-                Выбери крипту
+                Выбрать валюту
             </InputLabel>
             <Select
                 labelId="mui-select-label"

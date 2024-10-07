@@ -3,7 +3,7 @@ import { Box, CircularProgress } from '@mui/material';
 import { fromNano } from 'ton-core';
 import JoyBox from '@mui/joy/Box';
 import { BetDetails, BetInfo } from '../contracts/wrappers';
-import { isBetActive, isWinner } from '../contracts/CommonFunctions';
+import { getPercent, isBetActive, isWinner } from '../contracts/CommonFunctions';
 import { ImageUrls } from '../ImageUrls';
 
 //Temporary descision for storing component functions, cause I don't know better practices
@@ -122,15 +122,6 @@ export function loader() {
     }}>
         <CircularProgress sx={{ color: '#2c9cdb' }} />
     </div>)
-}
-
-function getPercent(type: number, betInfo: BetInfo): string {
-    if (betInfo.total_bet_a == 0n && betInfo.total_bet_b == 0n) {
-        return '50'
-    }
-    const amount = type == 1 ? betInfo.total_bet_a : betInfo.total_bet_b
-    const sum = betInfo.total_bet_a + betInfo.total_bet_b
-    return (amount / sum * 100n).toString()
 }
 
 function getBorderColor(betInfo: BetInfo, betDetails: BetDetails | null, type: number): string {

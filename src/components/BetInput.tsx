@@ -3,7 +3,7 @@ import { useTonConnectUI } from '@tonconnect/ui-react';
 import { Box, Button, Typography } from '@mui/material';
 import NumericTextField from './NumericTextField';
 import { Bet } from '../contracts/ChildContract';
-import { calculateEstimate } from '../contracts/CommonFunctions';
+import { calculateEstimate, getTokenName } from '../contracts/CommonFunctions';
 
 interface InputProps {
   onConfirm: (amount: string) => void;
@@ -61,7 +61,7 @@ const BetInput: React.FC<InputProps> = ({ onConfirm, bet, betType }) => {
         <NumericTextField
           value={amount}
           id="betinput"
-          label="Введите сумму в TON"
+          label={"Введите сумму в " + getTokenName(bet?.betInfo?.token_type ?? '1')}
           inputProps={{ inputMode: 'decimal' }}
           variant="standard"
           onChange={handleAmountChange}
@@ -78,7 +78,7 @@ const BetInput: React.FC<InputProps> = ({ onConfirm, bet, betType }) => {
             variant="body1"
             sx={{ color: '#848d91', mr: 1, }}
           >
-            Возможный выигрыш в TON:
+            {"Возможный выигрыш в " + getTokenName(bet?.betInfo?.token_type ?? '1') + ":"}
           </Typography>
           <Typography
             variant="body1"

@@ -1,5 +1,5 @@
 
-import { Address, beginCell, fromNano, toNano } from "@ton/ton";
+import { Address, beginCell, toNano } from "@ton/ton";
 import { getTokenAllowedAddress } from "./Getters";
 import { Constants } from "./Constants";
 
@@ -36,8 +36,8 @@ export async function createTransactionForToken(
     let tokenAddress
     switch (token_type) {
         case '2':
-            // tokenAddress = Constants.hmstrMasterAddress
-            tokenAddress = Constants.tokenAddress
+            tokenAddress = Constants.hmstrMasterAddress
+            // tokenAddress = Constants.tokenAddress
             break;
 
         case '3':
@@ -63,7 +63,7 @@ export async function createTransactionForToken(
     }
     const newAmount = parseInt(amount.replace(/,/g, ".")) * 1000000000
 
-    const forwardTON = "0.2";  // gas
+    const forwardTON = "0.05";  // gas
     const forwardPayload = beginCell()
         .storeUint(0, 32)  // Opcode for comment message
         .storeStringTail(message)  // Message comment
