@@ -57,11 +57,14 @@ export async function createTransactionForToken(
     }
 
     const jettonWalletAddress = await getTokenAllowedAddress(userFriendlyAddress, tokenAddress)
+    
 
     if (jettonWalletAddress === null) {
         return null
     }
-    const newAmount = parseInt(amount.replace(/,/g, ".")) * 1000000000
+
+    const newAmount = parseFloat(amount.replace(',', '.')) * 1000000;
+
 
     const forwardTON = "0.05";  // gas
     const forwardPayload = beginCell()
@@ -69,10 +72,11 @@ export async function createTransactionForToken(
         .storeStringTail(message)  // Message comment
         .endCell();
 
+    const option = parseInt(message)
 
     const body = beginCell()
         .storeUint(0xf8a7ea5, 32)  // Opcode
-        .storeUint(2, 64)  // Unique ID
+        .storeUint(option, 64)  // Unique ID
         .storeCoins(newAmount)  // Amount of jettons to send
         .storeAddress(Address.parse(receiverAddress))  // Receiver address
         .storeAddress(jettonWalletAddress)  // Sender jetton wallet address
