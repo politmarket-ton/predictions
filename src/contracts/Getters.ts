@@ -6,6 +6,7 @@ import ParentContract from "./ParentContract";
 import axios from "axios";
 import TokenContract from "./TokenContract";
 import { it } from "node:test";
+import { Dictionary } from "ton-core";
 
 async function getChildContract(addressString: string) {
     const contractAddress = Address.parse(addressString);
@@ -103,8 +104,13 @@ export async function fetchCommonBets(tokenType: number) {
             return result = []
     }
 
-    const contract = await getParentContract(address);
-    const addressMap = await contract.getGetAllAddresses();
+    let addressMap
+    try {
+        const contract = await getParentContract(address);
+        addressMap = await contract.getGetAllAddresses();
+    } catch (error) {
+        addressMap = new Map<bigint, Address>()
+    }
 
     for (const address of addressMap.values()) {
         try {

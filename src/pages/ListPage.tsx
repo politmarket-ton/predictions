@@ -97,9 +97,9 @@ const ListPage: React.FC = () => {
                 switch (activeTab) {
                   case 0:
                     return <>
-                      <Box sx={{ mt: 3, ml: '16px', mr: '16px' }}>
+                      {/* <Box sx={{ mt: 3, ml: '16px', mr: '16px' }}>
                         <MuiDropdown options={options} onSelectionChange={handleTokenType} selectedValue={tokenType} />
-                      </Box>
+                      </Box> */}
                       {commonBetsList(data, handleClick)}
                     </>
                   case 1:

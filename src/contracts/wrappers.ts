@@ -1,6 +1,7 @@
 import {
     Address,
     Builder,
+    Cell,
     DictionaryValue,
     Slice,
     TupleReader,
