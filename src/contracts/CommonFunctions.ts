@@ -94,10 +94,20 @@ export function getTokenName(token_type: string) {
 
 
 export function getPercent(type: number, betInfo: BetInfo): string {
-    if (betInfo.total_bet_a == 0n && betInfo.total_bet_b == 0n) {
-        return '50'
+    let result = '50%'
+    try {
+        const a = BigInt(betInfo.total_bet_a)
+        const b = BigInt(betInfo.total_bet_b)
+        console.log('a:', betInfo.total_bet_a, " b: ", betInfo.total_bet_b)
+        if (a == 0n && b == 0n) {
+            return result
+        }
+        const amount = type == 1 ? a : b
+        const sum = a + b
+        result = (amount / sum * BigInt(100)).toString()
+    } catch (error) {
+        console.error('error calculate percent')
     }
-    const amount = type == 1 ? betInfo.total_bet_a : betInfo.total_bet_b
-    const sum = betInfo.total_bet_a + betInfo.total_bet_b
-    return (amount / sum * 100n).toString()
+
+    return result
 }

@@ -157,7 +157,7 @@ const BetPage: React.FC = () => {
             <Box sx={{ display: 'flex', mt: 1, mr: 3, ml: 3, mb: 5, gap: 2 }}>
                 {BetButtons("Поделиться", () => {
                     if (bet != null) {
-                        handleShare("https://t.me/politmarket_bot/PolitMarket/?startapp=".concat(bet.address))
+                        handleShare("https://t.me/politmarket_bot/politMarket/?startapp=".concat(bet.address))
                     }
                 })}
                 {BetButtons("В канал", () => {
