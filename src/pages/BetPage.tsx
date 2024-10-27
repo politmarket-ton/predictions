@@ -306,7 +306,7 @@ function IconlessRadio(betInfo: BetInfo | undefined, usdRate: number, handleBetT
                                     color: 'inherit' // Inherit color from parent (optional)
                                 }}
                             >
-                                {getPercent(index, betInfo).concat('%')}
+                                {getPercent(index + 1, betInfo).concat('%')}
                             </Typography>
                         </Box>
 
